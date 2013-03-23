@@ -29,7 +29,7 @@ ImageFilter._filters = {
         return ["-modulate", "150,80,100", "-gamma", "1.2", "-contrast", "-contrast"]
     },
     "edgy": function() {
-        return ["-blur", "2x4", "-gamma", "1.5"]
+        return ["-blur", "2x4", "-gamma", "1.1"]
     }
 };
 
