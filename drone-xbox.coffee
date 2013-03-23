@@ -19,6 +19,20 @@ xbox.on "a:press", (key) ->
   console.log "a press (stop)"
   drone.stop()
 
+xbox.on "x:press", (key) ->
+  console.log "x press (flip left)"
+  drone.stop()
+  setTimeout ->
+    client.animate('flipLeft', 15)
+  , 1000
+
+xbox.on "b:press", (key) ->
+  console.log "b press (flip right)"
+  drone.stop()
+  setTimeout ->
+    client.animate('flipRight', 15)
+  , 1000
+
 xbox.on "xboxbutton:press", (key) ->
   console.log "xboxbutton press (reset)"
   client.disableEmergency()
@@ -32,7 +46,7 @@ xbox.on "left:move", (position) ->
   y = position.y/32768
   console.log "left:move", {x: x, y: y}
   drone.move({right: x, back: y}, false)
-  
+
 xbox.on "right:move", (position) ->
   x = position.x/32768
   y = position.y/32768
