@@ -1,11 +1,13 @@
 XboxController = require "xbox-controller"
 Drone = require './drone'
 arDrone = require 'ar-drone'
+fs = require 'fs'
 
 xbox = new XboxController
 drone = new Drone(0.5)
 
 client = arDrone.createClient()
+pngStream = client.createPngStream()
 
 xbox.on "start:press", (key) ->
   console.log "start press (takeoff)"
@@ -18,6 +20,13 @@ xbox.on "back:press", (key) ->
 xbox.on "a:press", (key) ->
   console.log "a press (stop)"
   drone.stop()
+
+xbox.on "y:press", (key) ->
+  console.log "y press (photo)"
+  pngStream.on 'data', (data) ->
+    fs.writeFileSync 'test.png', data
+    console.log "Image file written"
+    pngStream.unbind 'data'
 
 xbox.on "xboxbutton:press", (key) ->
   console.log "xboxbutton press (reset)"
